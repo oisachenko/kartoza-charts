@@ -58,7 +58,14 @@ jobs:
           echo $DERIVATION
           mkdir -p /tmp/nix-closure
           nix-store --export $(nix-store -qR ${DERIVATION}) > /tmp/nix-closure/nix-shell.closure
-
+      - name: direnv testing (status)
+        run: |
+          echo $PATH
+          curl -sfL https://direnv.net/install.sh | bash
+          chmod +x direnv
+          # add direnv to path
+          export PATH=$PATH:$(pwd)
+          direnv status
       - name: Run chart-testing (list-changed)
         id: list-changed
         shell: direnv exec . bash -eo pipefail {0}
