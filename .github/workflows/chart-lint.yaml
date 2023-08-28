@@ -60,6 +60,7 @@ jobs:
           nix-store --export $(nix-store -qR ${DERIVATION}) > /tmp/nix-closure/nix-shell.closure
       - name: direnv testing (status)
         run: |
+          apt-get install -y direnv
           direnv status
       - name: Run chart-testing (list-changed)
         id: list-changed
